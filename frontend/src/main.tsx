@@ -5,6 +5,8 @@ import "./index.css";
 
 import Home from "./pages/Home";
 
+import { ChakraProvider } from "@chakra-ui/react";
+
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -14,6 +16,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<ChakraProvider>
+			<RouterProvider router={router} />
+		</ChakraProvider>
 	</StrictMode>,
 );
