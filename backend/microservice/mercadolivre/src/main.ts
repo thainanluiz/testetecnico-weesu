@@ -1,9 +1,21 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import { MicroserviceOptions, Transport } from "@nestjs/microservices";
+import { BadRequestException, ValidationPipe } from "@nestjs/common";
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule);
+	const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+		AppModule,
+		{
+			transport: Transport.RMQ,
+			options: {
+				urls: ["amqp://localhost:5672"],
+				queue: "products-queue",
+			},
+		},
+	);
 
+	// Apply global validation pipe with custom exception handling
 	app.useGlobalPipes(
 		new ValidationPipe({
 			whitelist: true,
@@ -21,6 +33,7 @@ async function bootstrap() {
 		}),
 	);
 
+	// Start the application
 	await app.listen();
 }
 bootstrap();
