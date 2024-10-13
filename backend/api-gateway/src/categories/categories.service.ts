@@ -1,23 +1,18 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
-import { ProductSearchDto } from "./dto/product-search.dto";
-import { ProductSearchedEvent } from "./events/product-searched.event";
 
 @Injectable()
-export class ProductsService {
+export class CategoriesService {
 	constructor(
 		@Inject("MERCADOLIVRE_MICROSERVICE")
 		private mercadoLivreClient: ClientProxy,
 	) {}
 
-	// This method sends a message to the microservice tosearch for products
-	async searchProducts({ term, categoryId, orderBy }: ProductSearchDto) {
+	// This method sends a message to the microservice to search for categories
+	async searchCategories() {
 		try {
 			// Send a message to the microservice
-			return this.mercadoLivreClient.send(
-				"search_products",
-				new ProductSearchedEvent(term, categoryId, orderBy),
-			);
+			return this.mercadoLivreClient.send("search_categories", {});
 		} catch (error) {
 			// If we have an HttpException, we throw it
 			if (error instanceof HttpException) {
