@@ -1,32 +1,38 @@
 import { useState } from "react";
-import { Container, Box, Heading, Text, Spinner } from "@chakra-ui/react";
+import {
+	Container,
+	Box,
+	Heading,
+	Text,
+	Spinner,
+	SimpleGrid,
+} from "@chakra-ui/react";
 import SearchInput from "../components/input/SearchInput";
+import { useSearchProductsHook } from "../hooks/useSearchProducts";
+import ProductCard from "../components/card/ProductCard";
 
 const Home: React.FC = () => {
-	const [loading, setLoading] = useState(false);
-	const [results, setResults] = useState<string | null>(null);
+	const [searchTerm, setSearchTerm] = useState<string | null>(null);
+
+	const { data, isLoading, isError, error } = useSearchProductsHook(
+		searchTerm || "",
+	);
 
 	const handleSearch = (term: string) => {
-		setLoading(true);
-		setResults(null);
-
-		setTimeout(() => {
-			setResults(`Resultados para: "${term}"`);
-			setLoading(false);
-		}, 1500);
+		setSearchTerm(term);
 	};
 
 	return (
-		<Container w="full" h="full" centerContent>
-			<Box py={12} textAlign="center">
+		<Container maxW="full" p={10} centerContent>
+			<Box textAlign="center" w="container.xl" rounded="md">
 				<Heading as="h1" size="2xl" mb={8} color="teal.600">
 					Busca de Produtos
 				</Heading>
 
 				<SearchInput onSearch={handleSearch} />
 
-				<Box mt={10}>
-					{loading ? (
+				<Box mt={10} w="full">
+					{isLoading && (
 						<Spinner
 							thickness="4px"
 							speed="0.65s"
@@ -34,13 +40,33 @@ const Home: React.FC = () => {
 							color="teal.500"
 							size="xl"
 						/>
-					) : results ? (
-						<Text fontSize="2xl" fontWeight="bold" color="teal.600">
-							{results}
+					)}
+
+					{isError && (
+						<Text fontSize="lg" color="red.500">
+							Erro:{" "}
+							{error instanceof Error
+								? error.message
+								: "Erro ao buscar produtos"}
 						</Text>
-					) : (
+					)}
+
+					{data?.products && data.products.length > 0 && (
+						<SimpleGrid
+							columns={{ sm: 1, md: 2, lg: 4 }}
+							spacing={8}
+							mt={8}
+							w="full"
+						>
+							{data.products.map((product) => (
+								<ProductCard key={product.id} product={product} />
+							))}
+						</SimpleGrid>
+					)}
+
+					{!isLoading && !isError && data?.products?.length === 0 && (
 						<Text fontSize="lg" color="gray.500">
-							Digite um termo para buscar produtos.
+							Nenhum produto encontrado.
 						</Text>
 					)}
 				</Box>
