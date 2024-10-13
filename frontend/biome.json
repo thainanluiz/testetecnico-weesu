@@ -32,7 +32,7 @@
 	},
 	"overrides": [
 		{
-			"include": ["*.ts"],
+			"include": ["*.tsx", "*.ts"],
 			"linter": {
 				"rules": {
 					"style": {
