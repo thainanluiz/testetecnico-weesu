@@ -40,6 +40,14 @@ export class ProductsController {
 		status: 200,
 		description: "The products were successfully found.",
 	})
+	@ApiResponse({
+		status: 400,
+		description: "The request is invalid.",
+	})
+	@ApiResponse({
+		status: 500,
+		description: "An internal server error occurred.",
+	})
 	@Get("search")
 	async searchProducts(@Query() productSearchDto: ProductSearchDto) {
 		try {

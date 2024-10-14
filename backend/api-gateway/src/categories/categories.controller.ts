@@ -15,6 +15,10 @@ export class CategoriesController {
 		status: 200,
 		description: "The categories were successfully found.",
 	})
+	@ApiResponse({
+		status: 500,
+		description: "An internal server error occurred.",
+	})
 	@Get()
 	async searchCategories() {
 		try {
