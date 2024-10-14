@@ -9,28 +9,32 @@ import {
 } from "@chakra-ui/react";
 import SearchInput from "../components/input/SearchInput";
 import SearchSelect from "../components/select/SearchSelect";
-import { useSearchProductsHook } from "../hooks/useSearchProducts";
-import { useSearchCategoriesHook } from "../hooks/useSearchCategories";
+import { useSearchProductsHook } from "../hooks/product/useSearchProducts";
+import { useSearchCategoriesHook } from "../hooks/category/useSearchCategories";
 import ProductCard from "../components/card/ProductCard";
+import { useProductContext } from "../context/product/productContext";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
 	const [searchTerm, setSearchTerm] = useState<string | null>(null);
 	const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
+	const [selectedSort, setSelectedSort] = useState<string>("relevance");
+
+	const sortOptions = [
+		{ value: "relevance", label: "Mais relevantes" },
+		{ value: "price_asc", label: "Menor preço" },
+		{ value: "price_desc", label: "Maior preço" },
+	];
 
 	const { data: categories } = useSearchCategoriesHook();
-
-	const { data, isLoading, isError, error } = useSearchProductsHook(
+	const { data, isLoading } = useSearchProductsHook(
 		searchTerm || "",
 		selectedCategory,
+		selectedSort,
 	);
 
-	const handleSearch = (term: string) => {
-		setSearchTerm(term);
-	};
-
-	const handleSelect = (value: string) => {
-		setSelectedCategory(value);
-	};
+	const { handleSetProduct } = useProductContext();
+	const navigate = useNavigate();
 
 	return (
 		<Container maxW="full" p={10} centerContent>
@@ -39,17 +43,27 @@ const Home: React.FC = () => {
 					Busca de Produtos
 				</Heading>
 
-				<SearchInput onSearch={handleSearch} />
+				<SearchInput onSearch={(value) => setSearchTerm(value)} />
 
 				<Box mt={8} w="full">
-					<SearchSelect
-						value={selectedCategory}
-						onChange={handleSelect}
-						options={categories?.categories || []}
-						getOptionValue={(option) => option.id}
-						getOptionLabel={(option) => option.name}
-						label="Categoria do Produto"
-					/>
+					<SimpleGrid columns={2} spacing={8} mt={8} w="full">
+						<SearchSelect
+							value={selectedCategory}
+							onChange={(value) => setSelectedCategory(value)}
+							options={categories?.categories || []}
+							getOptionValue={(option) => option.id}
+							getOptionLabel={(option) => option.name}
+							label="Categoria do Produto"
+						/>
+						<SearchSelect
+							value={selectedSort}
+							onChange={(value) => setSelectedSort(value)}
+							options={sortOptions}
+							getOptionValue={(option) => option.value}
+							getOptionLabel={(option) => option.label}
+							label="Ordenar por"
+						/>
+					</SimpleGrid>
 				</Box>
 
 				<Box mt={10} w="full">
@@ -63,15 +77,6 @@ const Home: React.FC = () => {
 						/>
 					)}
 
-					{isError && (
-						<Text fontSize="lg" color="red.500">
-							Erro:{" "}
-							{error instanceof Error
-								? error.message
-								: "Erro ao buscar produtos"}
-						</Text>
-					)}
-
 					{data?.products && data.products.length > 0 && (
 						<SimpleGrid
 							columns={{ sm: 1, md: 2, lg: 4 }}
@@ -80,12 +85,19 @@ const Home: React.FC = () => {
 							w="full"
 						>
 							{data.products.map((product) => (
-								<ProductCard key={product.id} product={product} />
+								<ProductCard
+									key={product.id}
+									product={product}
+									onClick={(product) => {
+										handleSetProduct(product);
+										navigate("/details");
+									}}
+								/>
 							))}
 						</SimpleGrid>
 					)}
 
-					{!isLoading && !isError && data?.products?.length === 0 && (
+					{!isLoading && data?.products?.length === 0 && (
 						<Text fontSize="lg" color="gray.500">
 							Nenhum produto encontrado.
 						</Text>

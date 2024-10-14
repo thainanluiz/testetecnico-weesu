@@ -28,6 +28,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
 				<InputLeftElement pointerEvents="none">
 					<SearchIcon color="gray.300" />
 				</InputLeftElement>
+
 				<Input
 					type="text"
 					placeholder="Buscar produtos"
@@ -38,6 +39,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
 					bg="white"
 					_placeholder={{ color: "gray.500" }}
 				/>
+
 				<InputRightElement>
 					<IconButton
 						aria-label="Buscar"

@@ -1,12 +1,4 @@
-import {
-	Select,
-	Box,
-	FormControl,
-	FormLabel,
-	InputGroup,
-	InputLeftElement,
-} from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Select, FormControl, FormLabel, InputGroup } from "@chakra-ui/react";
 
 interface SearchSelectProps<T> {
 	value: string;
@@ -31,9 +23,6 @@ const SearchSelect = <T extends {}>({
 		<FormControl>
 			{label && <FormLabel>{label}</FormLabel>}
 			<InputGroup>
-				<InputLeftElement pointerEvents="none">
-					<ChevronDownIcon color="gray.300" />
-				</InputLeftElement>
 				<Select
 					value={value}
 					onChange={(e) => onChange(e.target.value)}

@@ -1,20 +1,22 @@
 import { Box, Image, Text, Badge, Flex, Stack, Button } from "@chakra-ui/react";
-import { Product } from "../../interfaces/product-data";
+import { Product } from "../../interfaces/product/product-data";
 
 interface ProductCardProps {
 	product: Product;
+	onClick?: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 	return (
 		<Box
 			borderWidth="1px"
 			borderRadius="lg"
 			overflow="hidden"
 			bg="white"
-			boxShadow="md"
-			transition="all 0.3s ease"
-			_hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
+			boxShadow="lg"
+			transition="transform 0.3s ease, box-shadow 0.3s ease"
+			_hover={{ transform: "scale(1.05)", boxShadow: "xl" }}
+			onClick={() => onClick?.(product)}
 		>
 			<Box position="relative">
 				<Image
@@ -61,6 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 								currency: "BRL",
 							}).format(product.price)}
 						</Text>
+
 						{product.original_price && (
 							<Text
 								fontSize="sm"
@@ -99,7 +102,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 					)}
 
 					<Button colorScheme="teal" width="100%" size="md" mt={3}>
-						Adicionar ao carrinho
+						Ir para detalhes
 					</Button>
 				</Stack>
 			</Box>

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { SearchCategoriesResponse } from "../interfaces/category/categories-response";
+import { SearchCategoriesResponse } from "../../interfaces/category/categories-response";
 
 const fetchCategories = async (): Promise<SearchCategoriesResponse> => {
 	const { data } = await axios.get<SearchCategoriesResponse>(
