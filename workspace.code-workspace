@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "frontend"
+		},
+		{
+			"path": "backend/api-gateway"
+		},
+		{
+			"path": "backend/microservices/mercadolivre"
+		}
+	],
+	"settings": {}
+}
