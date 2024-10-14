@@ -1,18 +1,14 @@
-import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
-import { ClientProxy } from "@nestjs/microservices";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { RabbitMQService } from "src/rabbitmq/rabbitmq.service";
 
 @Injectable()
 export class CategoriesService {
-	constructor(
-		@Inject("MERCADOLIVRE_MICROSERVICE")
-		private mercadoLivreClient: ClientProxy,
-	) {}
+	constructor(private readonly rabbitMQService: RabbitMQService) {}
 
-	// This method sends a message to the microservice to search for categories
-	async searchCategories() {
+	// This method sends a message to the microservice to get for categories
+	async getCategories() {
 		try {
-			// Send a message to the microservice
-			return this.mercadoLivreClient.send("search_categories", {});
+			return this.rabbitMQService.sendMicroserviceMessage("get_categories", {});
 		} catch (error) {
 			// If we have an HttpException, we throw it
 			if (error instanceof HttpException) {

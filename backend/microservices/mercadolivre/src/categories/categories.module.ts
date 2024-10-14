@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
-import { CategoriesService } from "./categories.service";
 import { CategoriesController } from "./categories.controller";
-import { HttpModule } from "@nestjs/axios";
+import { CategoriesService } from "./categories.service";
+import { MercadoLivreModule } from "src/api/mercadolivre.module";
 
 @Module({
-	imports: [HttpModule],
+	imports: [MercadoLivreModule],
 	controllers: [CategoriesController],
 	providers: [CategoriesService],
 })

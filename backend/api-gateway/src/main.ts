@@ -1,23 +1,28 @@
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
 import {
 	BadRequestException,
 	ValidationPipe,
 	VersioningType,
 } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
+	// Create a instance of the application
 	const app = await NestFactory.create(AppModule);
 
+	// Enable CORS
 	app.enableCors();
 
+	// Set the global prefix to (/api/)
 	app.setGlobalPrefix("api");
 
+	// Enable versioning with URI (/v1/)
 	app.enableVersioning({
 		type: VersioningType.URI,
 	});
 
+	// Apply global validation pipe with custom exception handling
 	app.useGlobalPipes(
 		new ValidationPipe({
 			whitelist: true,
@@ -35,6 +40,7 @@ async function bootstrap() {
 		}),
 	);
 
+	// Create the Swagger document
 	const config = new DocumentBuilder()
 		.setTitle("Weesu API Gateway")
 		.setDescription("The Weesu Test Interview API Gateway")
@@ -43,10 +49,12 @@ async function bootstrap() {
 
 	const document = SwaggerModule.createDocument(app, config);
 
+	// Setup the Swagger UI
 	SwaggerModule.setup("docs", app, document, {
 		jsonDocumentUrl: "/docs-json",
 	});
 
+	// Start the application
 	await app.listen(3000);
 }
 bootstrap();

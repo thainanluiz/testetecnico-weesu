@@ -1,32 +1,20 @@
-import { HttpService } from "@nestjs/axios";
-import { Injectable } from "@nestjs/common";
-import { ProductSearchDto } from "./dto/product-search.dto";
-import { firstValueFrom } from "rxjs";
+import { HttpStatus, Injectable } from "@nestjs/common";
 import { RpcException } from "@nestjs/microservices";
+import { MercadoLivreService } from "src/api/mercadolivre.service";
+import { ProductSearchDto } from "./dto/product-search.dto";
 
 @Injectable()
 export class ProductsService {
-	constructor(private readonly httpService: HttpService) {}
+	constructor(private readonly mercadoLivreService: MercadoLivreService) {}
 
 	// Method to search products
 	async searchProducts(productSearchDto: ProductSearchDto) {
 		try {
-			// Call the Mercado Livre API
-			const response = await firstValueFrom(
-				this.httpService.get("https://api.mercadolibre.com/sites/MLB/search", {
-					params: {
-						q: productSearchDto.term,
-						category: productSearchDto.categoryId,
-						sort: productSearchDto.orderBy,
-					},
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}),
-			);
+			const response =
+				await this.mercadoLivreService.searchProducts(productSearchDto);
 
-			// Map the products
-			const products = response.data.results.map((product) => ({
+			// Map the products to a new array with minified data
+			const products = response.results.map((product) => ({
 				id: product.id,
 				title: product.title,
 				price: product.price,
@@ -50,16 +38,21 @@ export class ProductsService {
 				permalink: product.permalink,
 			}));
 
-			// Return the product list
 			return {
 				products: products,
-				total: response.data.paging.total,
+				total: response.paging.total,
 			};
 		} catch (error) {
-			// If we have an error, we throw a RpcException
+			if (error.message) {
+				throw new RpcException({
+					status: HttpStatus.INTERNAL_SERVER_ERROR,
+					error: error.message,
+				});
+			}
+
 			throw new RpcException({
-				status: error.response.status,
-				error: error.response.statusText,
+				status: HttpStatus.INTERNAL_SERVER_ERROR,
+				error: "Failed to search products",
 			});
 		}
 	}

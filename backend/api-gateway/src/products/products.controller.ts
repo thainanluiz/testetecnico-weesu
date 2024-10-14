@@ -3,6 +3,7 @@ import {
 	Get,
 	HttpException,
 	HttpStatus,
+	Param,
 	Query,
 } from "@nestjs/common";
 import { ProductSearchDto } from "./dto/product-search.dto";
@@ -51,7 +52,6 @@ export class ProductsController {
 	@Get("search")
 	async searchProducts(@Query() productSearchDto: ProductSearchDto) {
 		try {
-			// Call the searchProducts method from the ProductsService
 			return this.productsService.searchProducts(productSearchDto);
 		} catch (error) {
 			// If we have an HttpException, we throw it
