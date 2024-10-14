@@ -8,18 +8,28 @@ import {
 	SimpleGrid,
 } from "@chakra-ui/react";
 import SearchInput from "../components/input/SearchInput";
+import SearchSelect from "../components/select/SearchSelect";
 import { useSearchProductsHook } from "../hooks/useSearchProducts";
+import { useSearchCategoriesHook } from "../hooks/useSearchCategories";
 import ProductCard from "../components/card/ProductCard";
 
 const Home: React.FC = () => {
 	const [searchTerm, setSearchTerm] = useState<string | null>(null);
+	const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
+
+	const { data: categories } = useSearchCategoriesHook();
 
 	const { data, isLoading, isError, error } = useSearchProductsHook(
 		searchTerm || "",
+		selectedCategory,
 	);
 
 	const handleSearch = (term: string) => {
 		setSearchTerm(term);
+	};
+
+	const handleSelect = (value: string) => {
+		setSelectedCategory(value);
 	};
 
 	return (
@@ -30,6 +40,17 @@ const Home: React.FC = () => {
 				</Heading>
 
 				<SearchInput onSearch={handleSearch} />
+
+				<Box mt={8} w="full">
+					<SearchSelect
+						value={selectedCategory}
+						onChange={handleSelect}
+						options={categories?.categories || []}
+						getOptionValue={(option) => option.id}
+						getOptionLabel={(option) => option.name}
+						label="Categoria do Produto"
+					/>
+				</Box>
 
 				<Box mt={10} w="full">
 					{isLoading && (
