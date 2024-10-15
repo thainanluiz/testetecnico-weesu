@@ -15,8 +15,8 @@ export class ProductsController {
 		} catch (error) {
 			// Throw a RpcException if we have an error
 			throw new RpcException({
-				status: HttpStatus.INTERNAL_SERVER_ERROR,
-				error: error.message || "Internal Server Error",
+				statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+				message: error.message || "Internal Server Error",
 			});
 		}
 	}

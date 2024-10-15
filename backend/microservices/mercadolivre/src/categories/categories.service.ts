@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from "@nestjs/common";
 import { RpcException } from "@nestjs/microservices";
-import { MercadoLivreService } from "src/api/mercadolivre.service";
+import { MercadoLivreService } from "../api/mercadolivre.service";
 
 @Injectable()
 export class CategoriesService {
@@ -12,19 +12,19 @@ export class CategoriesService {
 			const categories = await this.mercadoLivreService.getCategories();
 
 			return {
-				categories: categories,
+				categories,
 			};
 		} catch (error) {
 			if (error.message) {
 				throw new RpcException({
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
-					error: error.message,
+					statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+					message: error.message,
 				});
 			}
 
 			throw new RpcException({
-				status: HttpStatus.INTERNAL_SERVER_ERROR,
-				error: "Failed to get categories",
+				statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+				message: "Failed to get categories",
 			});
 		}
 	}

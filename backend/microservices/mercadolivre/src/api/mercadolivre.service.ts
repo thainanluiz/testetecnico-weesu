@@ -1,7 +1,8 @@
 import { HttpService } from "@nestjs/axios";
-import { Injectable } from "@nestjs/common";
+import { HttpStatus, Injectable } from "@nestjs/common";
 import { firstValueFrom } from "rxjs";
-import { ProductSearchDto } from "src/products/dto/product-search.dto";
+import { ProductSearchDto } from "../products/dto/product-search.dto";
+import { RpcException } from "@nestjs/microservices";
 
 @Injectable()
 export class MercadoLivreService {
@@ -24,10 +25,16 @@ export class MercadoLivreService {
 			return response.data;
 		} catch (error) {
 			if (error.message) {
-				throw new Error(error.message);
+				throw new RpcException({
+					statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+					message: error.message,
+				});
 			}
 
-			throw new Error("Internal Server Error");
+			throw new RpcException({
+				statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+				message: "Internal Server Error",
+			});
 		}
 	}
 
@@ -53,10 +60,16 @@ export class MercadoLivreService {
 			return response.data;
 		} catch (error) {
 			if (error.message) {
-				throw new Error(error.message);
+				throw new RpcException({
+					statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+					message: error.message,
+				});
 			}
 
-			throw new Error("Internal Server Error");
+			throw new RpcException({
+				statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+				message: "Internal Server Error",
+			});
 		}
 	}
 }

@@ -61,10 +61,7 @@ export class ProductsController {
 
 			// If not, we throw a generic HttpException
 			throw new HttpException(
-				{
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
-					error: "Internal Server Error",
-				},
+				"Internal Server Error",
 				HttpStatus.INTERNAL_SERVER_ERROR,
 			);
 		}

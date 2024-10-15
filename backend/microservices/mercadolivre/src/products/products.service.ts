@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from "@nestjs/common";
 import { RpcException } from "@nestjs/microservices";
-import { MercadoLivreService } from "src/api/mercadolivre.service";
+import { MercadoLivreService } from "../api/mercadolivre.service";
 import { ProductSearchDto } from "./dto/product-search.dto";
 
 @Injectable()
@@ -45,14 +45,14 @@ export class ProductsService {
 		} catch (error) {
 			if (error.message) {
 				throw new RpcException({
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
-					error: error.message,
+					statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+					message: error.message,
 				});
 			}
 
 			throw new RpcException({
-				status: HttpStatus.INTERNAL_SERVER_ERROR,
-				error: "Failed to search products",
+				statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+				message: "Failed to search products",
 			});
 		}
 	}

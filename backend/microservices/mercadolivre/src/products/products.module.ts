@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ProductsController } from "./products.controller";
 import { ProductsService } from "./products.service";
-import { MercadoLivreModule } from "src/api/mercadolivre.module";
+import { MercadoLivreModule } from "../api/mercadolivre.module";
 
 @Module({
 	imports: [MercadoLivreModule],

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { RabbitMQService } from "src/rabbitmq/rabbitmq.service";
+import { RabbitMQService } from "../rabbitmq/rabbitmq.service";
 import { ProductSearchDto } from "./dto/product-search.dto";
 
 @Injectable()
@@ -22,10 +22,7 @@ export class ProductsService {
 
 			// If not, we throw a generic HttpException
 			throw new HttpException(
-				{
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
-					error: "Internal Server Error",
-				},
+				"Internal Server Error",
 				HttpStatus.INTERNAL_SERVER_ERROR,
 			);
 		}
