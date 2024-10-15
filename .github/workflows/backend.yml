@@ -1,0 +1,50 @@
+name: Run Backend Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test-api-gateway:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js for API Gateway
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.x"
+      
+      - name: Install dependencies for API Gateway
+        working-directory: ./backend/api-gateway
+        run: npm install
+
+      - name: Run tests for API Gateway
+        working-directory: ./backend/api-gateway
+        run: npm run test
+
+  test-mercadolivre-microservice:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js for Mercado Livre Microservice
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.x"
+
+      - name: Install dependencies for Mercado Livre Microservice
+        working-directory: ./backend/microservices/mercadolivre
+        run: npm install
+
+      - name: Run tests for Mercado Livre Microservice
+        working-directory: ./backend/microservices/mercadolivre
+        run: npm run test
