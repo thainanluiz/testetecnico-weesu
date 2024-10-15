@@ -31,6 +31,8 @@ services:
     build:
       context: ./backend/microservices/mercadolivre
       dockerfile: Dockerfile
+    env_file:
+      - ./backend/microservices/mercadolivre/.env
     command: npm run start:dev
     volumes:
       - ./backend/microservices/mercadolivre:/app
