@@ -1,6 +1,6 @@
 import { Controller, Get, HttpException, HttpStatus } from "@nestjs/common";
-import { CategoriesService } from "./categories.service";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { CategoriesService } from "./categories.service";
 
 @Controller({
 	version: "1",
@@ -9,17 +9,20 @@ import { ApiResponse, ApiTags } from "@nestjs/swagger";
 export class CategoriesController {
 	constructor(private readonly categoriesService: CategoriesService) {}
 
-	// Endpoint to search categories
+	// Endpoint to get categories
 	@ApiTags("categories")
 	@ApiResponse({
 		status: 200,
 		description: "The categories were successfully found.",
 	})
+	@ApiResponse({
+		status: 500,
+		description: "An internal server error occurred.",
+	})
 	@Get()
-	async searchCategories() {
+	async getCategories() {
 		try {
-			// Call the searchCategories method from the CategoriesService
-			return this.categoriesService.searchCategories();
+			return this.categoriesService.getCategories();
 		} catch (error) {
 			// If we have an HttpException, we throw it
 			if (error instanceof HttpException) {
@@ -28,10 +31,7 @@ export class CategoriesController {
 
 			// If not, we throw a generic HttpException
 			throw new HttpException(
-				{
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
-					error: "Internal Server Error",
-				},
+				"Internal Server Error",
 				HttpStatus.INTERNAL_SERVER_ERROR,
 			);
 		}

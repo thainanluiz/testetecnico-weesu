@@ -1,20 +1,22 @@
 import { Box, Image, Text, Badge, Flex, Stack, Button } from "@chakra-ui/react";
-import { Product } from "../../interfaces/product-data";
+import { Product } from "../../interfaces/product/product-data";
 
 interface ProductCardProps {
 	product: Product;
+	onClick?: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 	return (
 		<Box
 			borderWidth="1px"
 			borderRadius="lg"
 			overflow="hidden"
 			bg="white"
-			boxShadow="md"
-			transition="all 0.3s ease"
-			_hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
+			boxShadow="lg"
+			transition="transform 0.3s ease, box-shadow 0.3s ease"
+			_hover={{ transform: "scale(1.05)", boxShadow: "xl" }}
+			onClick={() => onClick?.(product)}
 		>
 			<Box position="relative">
 				<Image
@@ -50,7 +52,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
 			<Box p={4}>
 				<Stack spacing={3}>
-					<Text fontWeight="bold" fontSize="lg" noOfLines={2} color="gray.700">
+					<Text
+						align={"left"}
+						fontWeight="bold"
+						fontSize="lg"
+						noOfLines={2}
+						color="gray.700"
+					>
 						{product.title}
 					</Text>
 
@@ -61,6 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 								currency: "BRL",
 							}).format(product.price)}
 						</Text>
+
 						{product.original_price && (
 							<Text
 								fontSize="sm"
@@ -76,15 +85,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 						)}
 					</Flex>
 
-					<Text fontSize="sm" color="gray.600">
-						Vendido por:{" "}
-						{product.seller.official_store_name || product.seller.nickname}
-					</Text>
-
-					<Text fontSize="sm" color="gray.500">
-						Disponibilidade: {product.available_quantity}
-					</Text>
-
 					{product.installments && (
 						<Text fontSize="sm" color="gray.500">
 							{product.installments.quantity}x de{" "}
@@ -99,7 +99,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 					)}
 
 					<Button colorScheme="teal" width="100%" size="md" mt={3}>
-						Adicionar ao carrinho
+						Ir para detalhes
 					</Button>
 				</Stack>
 			</Box>

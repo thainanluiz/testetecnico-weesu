@@ -1,21 +1,10 @@
 import { Module } from "@nestjs/common";
+import { RabbitMQModule } from "../rabbitmq/rabbitmq.module";
 import { ProductsController } from "./products.controller";
 import { ProductsService } from "./products.service";
-import { ClientsModule, Transport } from "@nestjs/microservices";
 
 @Module({
-	imports: [
-		ClientsModule.register([
-			{
-				name: "MERCADOLIVRE_MICROSERVICE",
-				transport: Transport.RMQ,
-				options: {
-					urls: ["amqp://guest:guest@rabbitmq:5672"],
-					queue: "main_queue",
-				},
-			},
-		]),
-	],
+	imports: [RabbitMQModule],
 	controllers: [ProductsController],
 	providers: [ProductsService],
 })

@@ -1,39 +1,30 @@
-import { HttpService } from "@nestjs/axios";
-import { Injectable } from "@nestjs/common";
-import { firstValueFrom } from "rxjs";
+import { HttpStatus, Injectable } from "@nestjs/common";
 import { RpcException } from "@nestjs/microservices";
+import { MercadoLivreService } from "../api/mercadolivre.service";
 
 @Injectable()
 export class CategoriesService {
-	constructor(private readonly httpService: HttpService) {}
+	constructor(private readonly mercadoLivreService: MercadoLivreService) {}
 
-	// Method to search categories
-	async searchCategories() {
+	// Service method to get categories
+	async getCategories() {
 		try {
-			// Call the Mercado Livre API
-			const response = await firstValueFrom(
-				this.httpService.get(
-					"https://api.mercadolibre.com/sites/MLB/categories",
-					{
-						headers: {
-							"Content-Type": "application/json",
-						},
-					},
-				),
-			);
+			const categories = await this.mercadoLivreService.getCategories();
 
-			// Map the categories
-			const categories = response.data;
-
-			// Return the categories list
 			return {
-				categories: categories,
+				categories,
 			};
 		} catch (error) {
-			// If we have an error, we throw a RpcException
+			if (error.message) {
+				throw new RpcException({
+					statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+					message: error.message,
+				});
+			}
+
 			throw new RpcException({
-				status: error.response.status,
-				error: error.response.statusText,
+				statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+				message: "Failed to get categories",
 			});
 		}
 	}

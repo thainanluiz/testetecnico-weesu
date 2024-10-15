@@ -3,6 +3,7 @@ import {
 	Get,
 	HttpException,
 	HttpStatus,
+	Param,
 	Query,
 } from "@nestjs/common";
 import { ProductSearchDto } from "./dto/product-search.dto";
@@ -40,10 +41,17 @@ export class ProductsController {
 		status: 200,
 		description: "The products were successfully found.",
 	})
+	@ApiResponse({
+		status: 400,
+		description: "The request is invalid.",
+	})
+	@ApiResponse({
+		status: 500,
+		description: "An internal server error occurred.",
+	})
 	@Get("search")
 	async searchProducts(@Query() productSearchDto: ProductSearchDto) {
 		try {
-			// Call the searchProducts method from the ProductsService
 			return this.productsService.searchProducts(productSearchDto);
 		} catch (error) {
 			// If we have an HttpException, we throw it
@@ -53,10 +61,7 @@ export class ProductsController {
 
 			// If not, we throw a generic HttpException
 			throw new HttpException(
-				{
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
-					error: "Internal Server Error",
-				},
+				"Internal Server Error",
 				HttpStatus.INTERNAL_SERVER_ERROR,
 			);
 		}
