@@ -49,7 +49,9 @@ const Home: React.FC = () => {
 					<SimpleGrid columns={2} spacing={8} mt={8} w="full">
 						<SearchSelect
 							value={selectedCategory}
-							onChange={(value) => setSelectedCategory(value)}
+							onChange={(value) => {
+								setSelectedCategory(value);
+							}}
 							options={categories?.categories || []}
 							getOptionValue={(option) => option.id}
 							getOptionLabel={(option) => option.name}
@@ -57,7 +59,9 @@ const Home: React.FC = () => {
 						/>
 						<SearchSelect
 							value={selectedSort}
-							onChange={(value) => setSelectedSort(value)}
+							onChange={(value) => {
+								setSelectedSort(value);
+							}}
 							options={sortOptions}
 							getOptionValue={(option) => option.value}
 							getOptionLabel={(option) => option.label}
@@ -77,9 +81,9 @@ const Home: React.FC = () => {
 						/>
 					)}
 
-					{data?.products && data.products.length > 0 && (
+					{!isLoading && data?.products && data.products.length > 0 && (
 						<SimpleGrid
-							columns={{ sm: 1, md: 2, lg: 4 }}
+							columns={{ sm: 1, md: 3, lg: 5 }}
 							spacing={8}
 							mt={8}
 							w="full"

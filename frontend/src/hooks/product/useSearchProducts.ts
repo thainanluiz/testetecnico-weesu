@@ -26,5 +26,6 @@ export const useSearchProductsHook = (
 		queryKey: ["products-search", term],
 		queryFn: () => fetchProducts(term, category, sort),
 		enabled: !!term,
+		refetchInterval: 3000,
 	});
 };

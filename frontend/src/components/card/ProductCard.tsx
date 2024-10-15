@@ -52,7 +52,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 
 			<Box p={4}>
 				<Stack spacing={3}>
-					<Text fontWeight="bold" fontSize="lg" noOfLines={2} color="gray.700">
+					<Text
+						align={"left"}
+						fontWeight="bold"
+						fontSize="lg"
+						noOfLines={2}
+						color="gray.700"
+					>
 						{product.title}
 					</Text>
 
@@ -78,15 +84,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 							</Text>
 						)}
 					</Flex>
-
-					<Text fontSize="sm" color="gray.600">
-						Vendido por:{" "}
-						{product.seller.official_store_name || product.seller.nickname}
-					</Text>
-
-					<Text fontSize="sm" color="gray.500">
-						Disponibilidade: {product.available_quantity}
-					</Text>
 
 					{product.installments && (
 						<Text fontSize="sm" color="gray.500">
