@@ -125,4 +125,10 @@ Este projeto é um sistema de busca de produtos no Mercado Livre, que consiste e
 
 ## Testes
 
-Testes estão em desenvolvimento e serão adicionados em breve.
+Os testes são executados com Jest. Para executar os testes, em cada serviço, execute:
+
+```bash
+npm run test
+```
+
+Os testes estão disponiveis no GitHub Actions e são executados automaticamente a cada push.
