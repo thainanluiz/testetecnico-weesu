@@ -9,7 +9,7 @@ import { RabbitMQService } from "./rabbitmq.service";
 				name: "MERCADOLIVRE_MICROSERVICE",
 				transport: Transport.RMQ,
 				options: {
-					urls: ["amqp://guest:guest@localhost:5672"],
+					urls: ["amqp://guest:guest@rabbitmq:5672"],
 					queue: "main_queue",
 				},
 			},
