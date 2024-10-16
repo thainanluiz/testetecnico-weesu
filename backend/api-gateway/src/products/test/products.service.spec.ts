@@ -1,8 +1,8 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { ProductsService } from "../products.service";
-import { RabbitMQService } from "../../rabbitmq/rabbitmq.service";
 import { HttpException, HttpStatus } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
+import { RabbitMQService } from "../../rabbitmq/rabbitmq.service";
 import { ProductSearchDto } from "../dto/product-search.dto";
+import { ProductsService } from "../products.service";
 
 describe("ProductsService", () => {
 	let service: ProductsService;

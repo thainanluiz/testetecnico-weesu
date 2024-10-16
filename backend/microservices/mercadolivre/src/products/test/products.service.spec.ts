@@ -1,9 +1,9 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { ProductsService } from "../products.service";
-import { MercadoLivreService } from "../../api/mercadolivre.service";
-import { RpcException } from "@nestjs/microservices";
 import { HttpStatus } from "@nestjs/common";
+import { RpcException } from "@nestjs/microservices";
+import { Test, TestingModule } from "@nestjs/testing";
+import { MercadoLivreService } from "../../api/mercadolivre.service";
 import { ProductSearchDto } from "../dto/product-search.dto";
+import { ProductsService } from "../products.service";
 
 describe("ProductsService", () => {
 	let service: ProductsService;

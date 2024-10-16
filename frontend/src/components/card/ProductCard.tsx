@@ -1,4 +1,4 @@
-import { Box, Image, Text, Badge, Flex, Stack, Button } from "@chakra-ui/react";
+import { Badge, Box, Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import { Product } from "../../interfaces/product/product-data";
 
 interface ProductCardProps {

@@ -1,19 +1,19 @@
-import { useState } from "react";
 import {
-	Container,
 	Box,
+	Container,
 	Heading,
-	Text,
-	Spinner,
 	SimpleGrid,
+	Spinner,
+	Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ProductCard from "../components/card/ProductCard";
 import SearchInput from "../components/input/SearchInput";
 import SearchSelect from "../components/select/SearchSelect";
-import { useSearchProductsHook } from "../hooks/product/useSearchProducts";
-import { useSearchCategoriesHook } from "../hooks/category/useSearchCategories";
-import ProductCard from "../components/card/ProductCard";
 import { useProductContext } from "../context/product/productContext";
-import { useNavigate } from "react-router-dom";
+import { useSearchCategoriesHook } from "../hooks/category/useSearchCategories";
+import { useSearchProductsHook } from "../hooks/product/useSearchProducts";
 
 const Home: React.FC = () => {
 	const [searchTerm, setSearchTerm] = useState<string | null>(null);

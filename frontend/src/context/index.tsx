@@ -1,9 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { ProductProvider } from "./product/productContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home";
 import Details from "../pages/Details";
+import Home from "../pages/Home";
+import { ProductProvider } from "./product/productContext";
 
 const router = createBrowserRouter([
 	{

@@ -1,20 +1,20 @@
 import {
 	Box,
-	Container,
-	Stack,
-	Text,
-	Image,
-	Flex,
 	Button,
+	Container,
+	Flex,
 	Heading,
-	SimpleGrid,
-	StackDivider,
-	useColorModeValue,
+	Image,
 	List,
 	ListItem,
+	SimpleGrid,
+	Stack,
+	StackDivider,
+	Text,
+	useColorModeValue,
 } from "@chakra-ui/react";
-import { useProductContext } from "../context/product/productContext";
 import { useNavigate } from "react-router-dom";
+import { useProductContext } from "../context/product/productContext";
 
 const Details: React.FC = () => {
 	const { product, handleClearProduct } = useProductContext();

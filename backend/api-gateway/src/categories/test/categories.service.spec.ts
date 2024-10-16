@@ -1,7 +1,7 @@
-import { Test, TestingModule } from "@nestjs/testing";
 import { HttpException, HttpStatus } from "@nestjs/common";
-import { CategoriesService } from "../categories.service";
+import { Test, TestingModule } from "@nestjs/testing";
 import { RabbitMQService } from "../../rabbitmq/rabbitmq.service";
+import { CategoriesService } from "../categories.service";
 
 describe("CategoriesService", () => {
 	let service: CategoriesService;

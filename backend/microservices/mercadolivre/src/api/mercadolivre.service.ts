@@ -1,8 +1,8 @@
 import { HttpService } from "@nestjs/axios";
 import { HttpStatus, Injectable } from "@nestjs/common";
+import { RpcException } from "@nestjs/microservices";
 import { firstValueFrom } from "rxjs";
 import { ProductSearchDto } from "../products/dto/product-search.dto";
-import { RpcException } from "@nestjs/microservices";
 
 @Injectable()
 export class MercadoLivreService {
