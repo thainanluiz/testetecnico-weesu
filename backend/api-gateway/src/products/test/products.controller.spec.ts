@@ -1,8 +1,8 @@
+import { HttpException, HttpStatus } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
+import { ProductSearchDto } from "../dto/product-search.dto";
 import { ProductsController } from "../products.controller";
 import { ProductsService } from "../products.service";
-import { ProductSearchDto } from "../dto/product-search.dto";
-import { HttpException, HttpStatus } from "@nestjs/common";
 
 describe("ProductsController", () => {
 	let controller: ProductsController;

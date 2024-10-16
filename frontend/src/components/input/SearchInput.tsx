@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { SearchIcon } from "@chakra-ui/icons";
 import {
+	IconButton,
 	Input,
 	InputGroup,
 	InputLeftElement,
 	InputRightElement,
-	IconButton,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 
 interface SearchInputProps {
 	onSearch: (term: string) => void;

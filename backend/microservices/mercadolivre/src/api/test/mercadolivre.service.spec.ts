@@ -1,10 +1,10 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { MercadoLivreService } from "../mercadolivre.service";
 import { HttpService } from "@nestjs/axios";
-import { of, throwError } from "rxjs";
-import { RpcException } from "@nestjs/microservices";
 import { HttpStatus } from "@nestjs/common";
+import { RpcException } from "@nestjs/microservices";
+import { Test, TestingModule } from "@nestjs/testing";
+import { of, throwError } from "rxjs";
 import { ProductSearchDto } from "src/products/dto/product-search.dto";
+import { MercadoLivreService } from "../mercadolivre.service";
 
 describe("MercadoLivreService", () => {
 	let service: MercadoLivreService;

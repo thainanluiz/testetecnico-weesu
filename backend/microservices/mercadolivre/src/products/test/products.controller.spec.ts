@@ -1,9 +1,9 @@
+import { HttpStatus } from "@nestjs/common";
+import { RpcException } from "@nestjs/microservices";
 import { Test, TestingModule } from "@nestjs/testing";
+import { ProductSearchDto } from "../dto/product-search.dto";
 import { ProductsController } from "../products.controller";
 import { ProductsService } from "../products.service";
-import { RpcException } from "@nestjs/microservices";
-import { ProductSearchDto } from "../dto/product-search.dto";
-import { HttpStatus } from "@nestjs/common";
 
 describe("ProductsController", () => {
 	let controller: ProductsController;

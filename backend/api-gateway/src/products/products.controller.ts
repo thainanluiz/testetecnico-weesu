@@ -6,9 +6,9 @@ import {
 	Param,
 	Query,
 } from "@nestjs/common";
+import { ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ProductSearchDto } from "./dto/product-search.dto";
 import { ProductsService } from "./products.service";
-import { ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 @Controller({
 	version: "1",

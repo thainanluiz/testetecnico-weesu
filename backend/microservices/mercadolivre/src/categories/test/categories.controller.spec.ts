@@ -1,8 +1,8 @@
+import { HttpStatus } from "@nestjs/common";
+import { RpcException } from "@nestjs/microservices";
 import { Test, TestingModule } from "@nestjs/testing";
 import { CategoriesController } from "../categories.controller";
 import { CategoriesService } from "../categories.service";
-import { RpcException } from "@nestjs/microservices";
-import { HttpStatus } from "@nestjs/common";
 
 describe("CategoriesController", () => {
 	let controller: CategoriesController;

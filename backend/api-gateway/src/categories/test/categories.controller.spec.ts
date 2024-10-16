@@ -1,7 +1,7 @@
+import { HttpException, HttpStatus } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { CategoriesController } from "../categories.controller";
 import { CategoriesService } from "../categories.service";
-import { HttpException, HttpStatus } from "@nestjs/common";
 
 describe("CategoriesController", () => {
 	let controller: CategoriesController;

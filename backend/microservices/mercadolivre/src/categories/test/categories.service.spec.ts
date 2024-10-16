@@ -1,8 +1,8 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { CategoriesService } from "../categories.service";
-import { MercadoLivreService } from "../../api/mercadolivre.service";
-import { RpcException } from "@nestjs/microservices";
 import { HttpStatus } from "@nestjs/common";
+import { RpcException } from "@nestjs/microservices";
+import { Test, TestingModule } from "@nestjs/testing";
+import { MercadoLivreService } from "../../api/mercadolivre.service";
+import { CategoriesService } from "../categories.service";
 
 describe("CategoriesService", () => {
 	let service: CategoriesService;
