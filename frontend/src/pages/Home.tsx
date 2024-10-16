@@ -56,6 +56,7 @@ const Home: React.FC = () => {
 							getOptionValue={(option) => option.id}
 							getOptionLabel={(option) => option.name}
 							label="Categoria do Produto"
+							placeholder="Todas as categorias"
 						/>
 						<SearchSelect
 							value={selectedSort}
