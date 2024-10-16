@@ -8,7 +8,7 @@ const fetchProducts = async (
 	sort?: string,
 ): Promise<SearchProductsResponse> => {
 	const { data } = await axios.get<SearchProductsResponse>(
-		"http://localhost:3000/api/v1/products/search",
+		`${import.meta.env.VITE_API_PROTOCOL}://${import.meta.env.VITE_API_DOMAIN}:${import.meta.env.VITE_API_PORT}/${import.meta.env.VITE_API_PREFIX}/${import.meta.env.VITE_API_VERSION}/products/search`,
 		{
 			params: { term, categoryId: category, orderBy: sort },
 		},
@@ -26,6 +26,6 @@ export const useSearchProductsHook = (
 		queryKey: ["products-search", term],
 		queryFn: () => fetchProducts(term, category, sort),
 		enabled: !!term,
-		refetchInterval: 3000,
+		refetchInterval: import.meta.env.VITE_API_REFETCH_RATE,
 	});
 };

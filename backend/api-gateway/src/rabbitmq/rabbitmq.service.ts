@@ -4,7 +4,7 @@ import { ClientProxy } from "@nestjs/microservices";
 @Injectable()
 export class RabbitMQService {
 	constructor(
-		@Inject("MERCADOLIVRE_MICROSERVICE")
+		@Inject(process.env.MERCADO_LIVRE_MICROSERVICE_CLIENT)
 		private mercadoLivreClient: ClientProxy,
 	) {}
 
