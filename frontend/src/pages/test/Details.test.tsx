@@ -2,12 +2,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import {
-	ProductContext,
-	useProductContext,
-} from "../../context/product/productContext";
+import { ProductContext } from "../../context/product/productContext";
 import Details from "../Details";
-import { m } from "framer-motion";
 
 describe("Details Page", () => {
 	// Mock the product data
