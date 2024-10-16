@@ -6,11 +6,11 @@ import { RabbitMQService } from "./rabbitmq.service";
 	imports: [
 		ClientsModule.register([
 			{
-				name: "MERCADOLIVRE_MICROSERVICE",
+				name: process.env.MERCADO_LIVRE_MICROSERVICE_CLIENT,
 				transport: Transport.RMQ,
 				options: {
-					urls: ["amqp://guest:guest@rabbitmq:5672"],
-					queue: "main_queue",
+					urls: [process.env.MERCADO_LIVRE_MICROSERVICE_URL],
+					queue: process.env.MERCADO_LIVRE_MICROSERVICE_QUEUE,
 				},
 			},
 		]),

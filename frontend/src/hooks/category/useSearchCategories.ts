@@ -4,7 +4,7 @@ import { SearchCategoriesResponse } from "../../interfaces/category/categories-r
 
 const fetchCategories = async (): Promise<SearchCategoriesResponse> => {
 	const { data } = await axios.get<SearchCategoriesResponse>(
-		"http://localhost:3000/api/v1/categories",
+		`${import.meta.env.VITE_API_PROTOCOL}://${import.meta.env.VITE_API_DOMAIN}:${import.meta.env.VITE_API_PORT}/${import.meta.env.VITE_API_PREFIX}/${import.meta.env.VITE_API_VERSION}/categories`,
 	);
 
 	return data;
@@ -14,5 +14,6 @@ export const useSearchCategoriesHook = () => {
 	return useQuery({
 		queryKey: ["categories-search"],
 		queryFn: () => fetchCategories(),
+		refetchInterval: import.meta.env.VITE_API_REFETCH_RATE,
 	});
 };

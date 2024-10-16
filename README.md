@@ -56,6 +56,38 @@ Este projeto é um sistema de busca de produtos no Mercado Livre, que consiste e
    docker-compose up --build
    ```
 
+    - Isso irá construir e subir os contêineres para o frontend, backend e RabbitMQ.
+
+    - Você pode pular o Docker Compose e executar os serviços manualmente, se preferir.
+
+    - Para subir o frontend manualmente, execute:
+
+       ```bash
+       cd frontend
+       npm install
+       npm run dev
+       ```
+
+    - Para subir o backend manualmente, execute:
+
+       ```bash
+       cd backend/api-gateway
+       npm install
+       npm run start:dev
+       ```
+
+       ```bash
+       cd backend/microservices/mercadolivre
+       npm install
+       npm run start:dev
+       ```
+
+3. **Acesse a aplicação:**
+
+    - **Frontend:** [http://localhost:5173](http://localhost:5173)
+    - **Backend:** [http://localhost:3000/api/v1](http://localhost:3000/api/v1)
+    - **Backend Docs:** [http://localhost:3000/docs](http://localhost:3000/docs)
+
 ## Endpoints da API
 
 ### 1. **Buscar Produtos**
@@ -125,10 +157,10 @@ Este projeto é um sistema de busca de produtos no Mercado Livre, que consiste e
 
 ## Testes
 
-Os testes são executados com Jest. Para executar os testes, em cada serviço, execute:
+Os testes são executados com Jest e Vitest. Para executar os testes, em cada serviço disponível, execute:
 
 ```bash
 npm run test
 ```
 
-Os testes estão disponiveis no GitHub Actions e são executados automaticamente a cada push.
+Os testes também estão disponiveis no GitHub Actions via CI/CD e são executados automaticamente a cada push e pull request.
