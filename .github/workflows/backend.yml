@@ -11,7 +11,26 @@ on:
       - develop
 
 jobs:
-  test-api-gateway:
+  test-react-vite-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js for Vite Frontend
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.x"
+
+      - name: Install dependencies for Vite Frontend
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run tests for Vite Frontend
+        working-directory: ./frontend
+        run: npm run test
+
+  test-api-gateway-backend:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +49,7 @@ jobs:
         working-directory: ./backend/api-gateway
         run: npm run test
 
-  test-mercadolivre-microservice:
+  test-mercadolivre-microservice-backend:
     runs-on: ubuntu-latest
 
     steps:
